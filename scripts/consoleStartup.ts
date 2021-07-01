@@ -10,7 +10,7 @@ type CustomContext = {
   signers: SignerWithAddress[]
   signer: SignerWithAddress
   provider: providers.Provider
-  factories: ContractFactory[]
+  factories: {[name: string]: ContractFactory}
   formatEther: (wei: BigNumberish) => string
   parseEther: (ether: string) => BigNumber
 }
@@ -29,7 +29,7 @@ type CustomContext = {
     .filter((n) => n !== undefined) as string[]
 
   // Get factories for all deployable contracts.
-  const factories: ContractFactory[] = Object.assign(
+  const factories: {[name: string]: ContractFactory} = Object.assign(
     {},
     ...(
       await Promise.all(
